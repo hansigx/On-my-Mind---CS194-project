@@ -3,7 +3,7 @@
 [See our project's wiki here](https://github.com/StanfordCS194/win26-Team20/wiki)
 
 
-Hansi Gunawardena 
-Rohan Parekh 
-
-
+Hansi Gunawardena
+Arunima Srivastav
+Rohan Parekh
+Ishvi Mathai
