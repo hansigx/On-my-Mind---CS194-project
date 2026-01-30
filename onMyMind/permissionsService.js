@@ -21,9 +21,11 @@ export async function getPermsForUser(boardUserId, posterUserId) {
     .eq("board_user_id", boardUserId)
     .eq("user_id", posterUserId);
 
-  if (error) console.error("Error fetching permissions:", error);
-
-  return data[0].permissions;
+  if (error) {
+    console.error("Error fetching permissions:", error);
+    return null;
+  }
+  return data?.[0]?.permissions ?? null;
 }
 
 export async function canUserRead(boardUserId, posterUserId) {
