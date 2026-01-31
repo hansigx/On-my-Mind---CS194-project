@@ -1,20 +1,42 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Button, View, Text } from "react-native";
+import AccountSettingsScreen from "./screens/AccountSettingsScreen";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Welcome to OnMyMind!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Main"
+          component={MainScreen}
+          options={({ navigation }) => ({
+            headerRight: () => (
+              <Button
+                onPress={() => navigation.navigate("AccountSettings")}
+                title="Settings"
+                color="#000"
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="AccountSettings"
+          component={AccountSettingsScreen}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+function MainScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text style={{ fontSize: 24, fontWeight: "bold" }}>onMyMind</Text>
+    </View>
+  );
+}
