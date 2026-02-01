@@ -1,5 +1,8 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
+# windows surface laptop arm64 compatibility demands a special script to open expo
+start-expo.bat
+
 # dependencies
 node_modules/
 
