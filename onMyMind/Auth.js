@@ -6,12 +6,11 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { signIn, signUp } from "./authService";
+import { signIn, signUp, signOut } from "./authService";
 
 export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -38,29 +37,38 @@ export default function Auth() {
       </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <TouchableOpacity
-          style={[styles.button, loading && styles.buttonDisabled]}
+          style={[styles.button]}
           onPress={() => {
-            setLoading(true);
             signIn(email, password).then(({ data, error }) => {
-              console.log(data, error);
+              console.log("Sign in:", data, error);
             });
           }}
-          disabled={loading}
         >
           <Text style={styles.buttonText}>Sign in</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.verticallySpaced}>
         <TouchableOpacity
-          style={[styles.button, loading && styles.buttonDisabled]}
+          style={[styles.button]}
           onPress={() =>
             signUp(email, password).then(({ data, error }) => {
-              console.log(data, error);
+              console.log("Sign up:", data, error);
             })
           }
-          disabled={loading}
         >
           <Text style={styles.buttonText}>Sign up</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.verticallySpaced}>
+        <TouchableOpacity
+          style={[styles.button]}
+          onPress={() => {
+            signOut().then(({ data, error }) => {
+              console.log("Sign out:", data, error);
+            });
+          }}
+        >
+          <Text style={styles.buttonText}>Sign out</Text>
         </TouchableOpacity>
       </View>
     </View>
