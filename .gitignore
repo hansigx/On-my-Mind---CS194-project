@@ -1,0 +1,58 @@
+# =====================
+# Node / JS
+# =====================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =====================
+# Expo
+# =====================
+.expo/
+.expo-shared/
+web-build/
+
+# Expo local env
+.expo/devices.json
+
+# =====================
+# Environment variables
+# =====================
+.env
+.env.local
+.env.development
+.env.production
+
+# =====================
+# OS / Editor junk
+# =====================
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# =====================
+# TypeScript
+# =====================
+*.tsbuildinfo
+
+# =====================
+# Build outputs
+# =====================
+dist/
+build/
+
+# =====================
+# Logs
+# =====================
+logs/
+*.log
+
+# =====================
+# Temporary files
+# =====================
+tmp/
+temp/
