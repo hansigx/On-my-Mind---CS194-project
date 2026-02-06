@@ -3,6 +3,7 @@ import { Picker } from "@react-native-picker/picker";
 import { useState, useEffect } from "react";
 import { getAllUsers } from "./userService";
 
+// component for selecting which board to post to, pass in state to use
 export default function UploadToBoard({
   targetBoardUserID,
   setTargetBoardUserID,
