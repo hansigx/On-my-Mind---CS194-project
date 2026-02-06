@@ -31,12 +31,14 @@ export async function getPermsForUser(boardUserId, posterUserId) {
 
   if (error) throw error;
 
+  console.log("Permissions data:", data);
+
   // if no perms, return null
-  if (data.length === 0) {
+  if (data === null || data.length === 0) {
     return null;
   }
 
-  return data[0].permissions;
+  return data.permissions;
 }
 
 // check if user can read
