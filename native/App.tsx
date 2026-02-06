@@ -1,4 +1,3 @@
-/*
 import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -35,9 +34,7 @@ export default function App() {
     async function loadData() {
       try {
         // Check if user has completed onboarding
-        const tourCompleted = await AsyncStorage.getItem(
-          TOUR_COMPLETED_KEY,
-        );
+        const tourCompleted = await AsyncStorage.getItem(TOUR_COMPLETED_KEY);
         setShowOnboarding(!tourCompleted);
 
         // Load data
@@ -79,9 +76,7 @@ export default function App() {
       <StatusBar style="dark" />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={
-            showOnboarding ? "Onboarding" : "Home"
-          }
+          initialRouteName={showOnboarding ? "Onboarding" : "Home"}
           screenOptions={{
             headerShown: false,
           }}
@@ -96,23 +91,20 @@ export default function App() {
           </Stack.Screen>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Board" component={BoardScreen} />
-          <Stack.Screen
-            name="Settings"
-            component={SettingsScreen}
-          />
-          <Stack.Screen
-            name="Notifications"
-            component={NotificationsScreen}
-          />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen name="Notifications" component={NotificationsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
   );
 }
- */
+
+/*
 
 import TestApp from "./components/TestApp";
 
 export default function App() {
   return <TestApp />;
 }
+
+*/
