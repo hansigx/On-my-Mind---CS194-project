@@ -4,12 +4,13 @@ import { supabase } from "./supabaseClient";
 
 // get image blob from either camera or library, helper for other abstractions
 // returns blob
-export async function getImageBlob(from) {
+async function getImageBlob(from) {
+  let response;
   // get user input
   if (from === "library") {
-    const response = await launchImageLibrary({ mediaType: "photo" });
+    response = await launchImageLibrary({ mediaType: "photo" });
   } else if (from === "camera") {
-    const response = await launchCamera({ mediaType: "photo" });
+    response = await launchCamera({ mediaType: "photo" });
   } else {
     console.error("Invalid image source specified. Use 'library' or 'camera'.");
     throw new Error(
@@ -34,18 +35,19 @@ export async function getImageBlob(from) {
 // get image blob from user library
 // returns blob
 export async function getImageBlobFromLibrary() {
-  return getImageBlob((from = "library"));
+  return getImageBlob("library");
 }
 
 // get image blob from user camera
 // returns blob
 export async function getImageBlobFromCamera() {
-  return getImageBlob((from = "camera"));
+  return getImageBlob({ from: "camera" });
 }
 
 // upload image blob to supabase and create row in posts table
 // returns 1 if successful, throws error
 export async function uploadBlobToUserBoard(blob, boardUserID, posterUserID) {
+  if (!blob) throw new Error("No image blob provided.");
   // check if poster has write perms
   if (!(await canUserWrite(boardUserID, posterUserID)))
     throw new Error("User does not have write permissions for this board.");
@@ -63,16 +65,41 @@ export async function uploadBlobToUserBoard(blob, boardUserID, posterUserID) {
     throw new Error("Error uploading image: " + uploadError.message);
 
   // insert into posts table
-  const { data: postData, error: postError } = await supabase
-    .from("posts")
-    .insert({
-      board_user_id: boardUserID,
-      author_id: posterUserID,
-      image_path: bucketPath,
-    });
-  // if error when creating row, first remove uploaded image to avoid orphaned files
-  if (postError) {
+  try {
+    const { data: postData, error: postError } = await supabase
+      .from("posts")
+      .insert({
+        board_user_id: boardUserID,
+        author_id: posterUserID,
+        image_path: bucketPath,
+      });
+    if (postError) {
+      throw new Error("Error creating post record: " + postError.message);
+    }
+  } catch (error) {
+    // if error when creating row, first remove uploaded image to avoid orphaned files
     await supabase.storage.from("posts").remove([bucketPath]);
-    throw new Error("Error creating post record: " + postError.message);
   }
+}
+
+export async function getPubURLFromPath(imagePath) {
+  const { data, error } = await supabase.storage
+    .from("posts")
+    .getPublicUrl(imagePath);
+
+  if (error) throw new Error("Error downloading image: " + error.message);
+
+  return data;
+}
+
+export async function getImagesForBoard(boardUserID) {
+  // get all rows for posts (future TODO: pagination if too many posts)
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("board_user_id", boardUserID);
+
+  if (error) throw new Error("Error fetching posts: " + error.message);
+
+  return data;
 }
