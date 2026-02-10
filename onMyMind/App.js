@@ -1,27 +1,20 @@
-import "react-native-url-polyfill/auto";
-import { useAuthContext } from "./hooks/use-auth-context";
-import AuthProvider from "./providers/auth-provider";
-import Auth from "./Auth";
-import { View, Text } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Main />
-    </AuthProvider>
-  );
-}
-
-function Main() {
-  const { session, profile, isLoggedIn, isLoading } = useAuthContext();
-
-  return (
-    <View>
-      <Auth />
-      <Text>User email:</Text>
-      {session && <Text>{session.user.email}</Text>}
-      <Text>User profile:</Text>
-      {profile && <Text>{JSON.stringify(profile)}</Text>}
+    <View style={styles.container}>
+      <Text>Welcome to OnMyMind!</Text>
+      <StatusBar style="auto" />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
