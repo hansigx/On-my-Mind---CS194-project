@@ -1,3 +1,4 @@
+/*
 import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -98,13 +99,10 @@ export default function App() {
     </>
   );
 }
-
-/*
+*/
 
 import TestApp from "./components/TestApp";
 
 export default function App() {
   return <TestApp />;
 }
-
-*/
