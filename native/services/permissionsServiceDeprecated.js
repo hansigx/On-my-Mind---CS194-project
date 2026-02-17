@@ -1,3 +1,8 @@
+/*
+DEPRECATED - this file is no longer used, permissions are now via the contributors table and functions in contributorService.js
+Leaving this here for reference
+*/
+
 import { supabase } from "../supabaseClient";
 
 // insert or update perms for a user on a board
