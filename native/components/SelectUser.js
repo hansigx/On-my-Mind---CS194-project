@@ -4,10 +4,7 @@ import { useState, useEffect } from "react";
 import { getAllUsers } from "../services/userService";
 
 // component for selecting which board to post to, pass in state to use
-export default function UploadToBoard({
-  targetBoardUserID,
-  setTargetBoardUserID,
-}) {
+export default function SelectUser({ targetUserID, setTargetUserID }) {
   const [allUsers, setAllUsers] = useState([]);
 
   // on load get all users
@@ -29,10 +26,10 @@ export default function UploadToBoard({
 
   return (
     <View>
-      <Text>Post to board:</Text>
+      <Text>Select a user:</Text>
       <Picker
-        selectedValue={targetBoardUserID}
-        onValueChange={(itemValue) => setTargetBoardUserID(itemValue)}
+        selectedValue={targetUserID}
+        onValueChange={(itemValue) => setTargetUserID(itemValue)}
       >
         <Picker.Item label="Select a user" value="" />
         {UserDropdown()}
